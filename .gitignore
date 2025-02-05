@@ -1,0 +1,8 @@
+.idea
+
+#
+# Files
+*.json
+*.csv
+*log
+__pycache__
