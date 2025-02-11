@@ -3,6 +3,7 @@ from exchanges.binance import BinanceClient
 from exchanges.mexc import MexcClient
 from data_collector import collect_all
 
+
 if __name__ == '__main__':
     # mode = input("Choose the program mode (data / backtest / optimize)").lower()
     mode = "data"
