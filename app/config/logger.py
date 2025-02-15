@@ -1,4 +1,5 @@
 import logging
+from config.paths import ProjectFiles
 
 LOG_FORMAT = "%(asctime)s %(levelname)s :: %(message)s"
 
@@ -11,7 +12,7 @@ logging.basicConfig(
     level=logging.DEBUG,
     format=LOG_FORMAT,
     handlers=[
-        logging.FileHandler("app.log"),
+        logging.FileHandler(ProjectFiles.app_log()),
         my_stream_handler
     ]
 )

@@ -1,13 +1,15 @@
 import h5py
 from typing import List, Tuple, Union
 import numpy as np
-from logger_config import logger
+from app.config.logger import logger
+from app.config.paths import ProjectFiles
 import pandas as pd
 import time
 
+
 class Hdf5Client:
     def __init__(self, exchange: str):
-        self.hf = h5py.File(name=f"data/{exchange}.h5", mode="a")
+        self.hf = h5py.File(name=ProjectFiles.h5(exchange), mode="a")
         self.hf.flush()  # persist in disk even if we dont close the file
 
     def create_dataset(self, symbol: str):

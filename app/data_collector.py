@@ -4,7 +4,7 @@ import logging
 import time
 
 from database import Hdf5Client
-from utils import *
+from app.utils import *
 from exchanges.binance import BinanceClient
 
 
