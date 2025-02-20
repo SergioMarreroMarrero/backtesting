@@ -1,11 +1,16 @@
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional, Union
 from datetime import datetime
-from utils import safe_load_yaml
+from app.utils import safe_load_yaml
 from app.config import paths
+from app.exchanges.binance import BinanceClient
+from app.exchanges.mexc import MexcClient
+
 
 STRATEGIES = [
-    'obv'
+    'obv',
+    "ichimoku",
+    "sup_res"
 ]
 
 
@@ -21,6 +26,12 @@ class ProgramExecutionConfig(BaseModel):
         if v != v.upper():
             raise ValueError(f"Symbol '{v}' must be in uppercase (e.g. 'BTCUSDT'")
         return v
+
+    def exchange_client(self) -> Union[BinanceClient, MexcClient]:
+        if self.exchange == "binance":
+            return BinanceClient(True)
+        elif self.exchange == "mexc":
+            return MexcClient(True)
 
 
 class BacktestConfig(BaseModel):
