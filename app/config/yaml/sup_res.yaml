@@ -1,0 +1,9 @@
+program_execution:
+  mode: "backtest"
+  exchange: "binance"
+  symbol: "BTCUSDT"
+backtest:
+  strategy: "sup_res"
+  timeframe: "4h"
+  from_time: ""
+  to_time: ""

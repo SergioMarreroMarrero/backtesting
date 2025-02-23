@@ -5,7 +5,7 @@ from app.data_collector import collect_all
 
 if __name__ == '__main__':
 
-    params = config.get_validated_config("2")
+    params = config.get_validated_config("sup_res")
 
     if params.program_execution.mode == "data":
 
