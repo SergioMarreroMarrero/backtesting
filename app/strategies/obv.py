@@ -13,14 +13,11 @@ def backtest(df: pd.DataFrame, ma_period: int):
                 .cumsum()
     df['obv_ma'] = round(df["obv"].rolling(window=ma_period).mean(), 2)  # rolling pide la funcion de agregacion a aplicar
     df['signal'] = np.where(df['obv'] > df['obv_ma'], 1, -1)  # si obv esta por encima de la media movil long si no short
-
-    '''
-    tiempo 1 | signal: long
-    tiempo 2 | pnl: % close tiempo 1 / tiempo 2 teniendo en cuenta que en tiempo 1 entramos en long
-    Con lo cual: para calcular el obv en tiempo 2 tenemos que hacerlo segun la seña del tiempo 1. Por eso usamos shift(1)
-    '''
     df['pnl'] = df["close"].pct_change() * df['signal'].shift(1)
-
-    return df["pnl"].sum()
+    # drawdown
+    df["cum_pnl"] = df["pnl"].cumsum()
+    df["max_cum_pnl"] = df["cum_pnl"].cummax()
+    df["drawdown"] = df["max_cum_pnl"] - df["cum_pnl"]
+    return df["pnl"].sum(), df["drawdown"].max()
 
 

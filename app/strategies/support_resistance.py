@@ -15,6 +15,8 @@ def backtest(df: pd.DataFrame, min_points: int, min_diff_points: int, rounding_n
     candle_length = df.iloc[1].name - df.iloc[0].name
 
     pnl = 0
+    max_pnl = 0
+    max_drawdown = 0
     trade_side = 0
     entry_price = None
 
@@ -112,10 +114,13 @@ def backtest(df: pd.DataFrame, min_points: int, min_diff_points: int, rounding_n
                     trade_side = 0
                     entry_price = None
 
+            max_pnl = max(max_pnl, pnl)
+            max_drawdown = max(max_drawdown, max_pnl - pnl)
+
     # mpf.plot(df, type="candle", style="charles", alines=dict(alines=levels["resistances"] + levels["supports"]))
     # plt.show()
 
-    return pnl
+    return pnl, max_drawdown
 
 
 

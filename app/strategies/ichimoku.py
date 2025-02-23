@@ -60,10 +60,15 @@ def backtest(df: pd.DataFrame, tenkan_period: int, kijun_period: int):
     # si no hay ninguna señal: 0
     df["signal"] = np.where(long_signal, 1, np.where(short_signal, 1, 0))
 
-    df_signal_data = df[df["signal"] != 0].copy()
-    df_signal_data["pnl"] = df_signal_data["close"].pct_change() * df_signal_data["signal"].shift(1)
+    df = df[df["signal"] != 0].copy()
+    df["pnl"] = df["close"].pct_change() * df["signal"].shift(1)
 
-    return df_signal_data["pnl"].sum()
+    # drawdown
+    df["cum_pnl"] = df["pnl"].cumsum()
+    df["max_cum_pnl"] = df["cum_pnl"].cummax()
+    df["drawdown"] = df["max_cum_pnl"] - df["cum_pnl"]
+
+    return df["pnl"].sum(), df["drawdown"].max()
 
     # return df
 

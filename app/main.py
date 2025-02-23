@@ -13,9 +13,11 @@ if __name__ == '__main__':
 
     elif params.program_execution.mode == "backtest":
 
-        backtester.run(exchange=params.program_execution.exchange,
-                       symbol=params.program_execution.symbol,
-                       strategy=params.backtest.strategy,
-                       tf=params.backtest.timeframe,
-                       from_time=params.backtest.from_time_to_timestamp_milliseconds(),
-                       to_time=params.backtest.to_time_to_timestamp_milliseconds())
+       pnl, max_drawdown = backtester.run(exchange=params.program_execution.exchange,
+                                          symbol=params.program_execution.symbol,
+                                          strategy=params.backtest.strategy,
+                                          tf=params.backtest.timeframe,
+                                          from_time=params.backtest.from_time_to_timestamp_milliseconds(),
+                                          to_time=params.backtest.to_time_to_timestamp_milliseconds())
+
+       print(pnl, max_drawdown)
