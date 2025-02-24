@@ -1,13 +1,10 @@
 #include <iostream>
-#include <hdf5.h>
-
-
-
+#include "Database.h"
 // TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-int main() {
-    std::cout << "Hello World!\n";
-    hid_t fapl = H5Pcreate(H5P_FILE_ACCESS);
+int main(int, char**) {
+    Database db("binance");
+    db.close_file();
 
 }
 

@@ -17,7 +17,9 @@ include_directories(${HDF5_INCLUDE_DIRS})
 link_directories(${HDF5_LIBRARY_DIRS})
 
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp
+        Database.cpp
+        Database.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} ${HDF5_LIBRARIES} ${HDF5_C_LIBRARIES})
