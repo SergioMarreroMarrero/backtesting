@@ -73,11 +73,8 @@ double** Database::get_data(const std::string& symbol, const std::string& exchan
 
     qsort(results, dims[0], sizeof(results[0]), compare);
 
-    if (dspace < 0) {
-        printf("Error: No se pudo obtener el dataspace del dataset %s\n", symbol.c_str());
-        H5Dclose(dataset);
-        return results;
-    }
+    H5Sclose(dspace);
+    H5Sclose(dataset);
 
     auto end_ts = chrono::high_resolution_clock::now();
     auto read_durationo = chrono::duration_cast<chrono::microseconds>(end_ts - start_ts);
